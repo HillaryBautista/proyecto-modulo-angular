@@ -1,0 +1,33 @@
+<section class="my-3">
+  <div class="container">
+    @if(!loading && !message){
+    <div class="col-12 d-flex justify-content-center">
+      <mat-spinner></mat-spinner>
+    </div>
+    } @else if(loading && !message){
+    <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        @for (ind of albums; track $index) {
+        <button type="button" data-bs-target="#carouselBanner" [attr.data-bs-slide-to]="$index"
+          [class.active]="$index === 0" [attr.aria-current]="$index === 0 ? 'true' : null"
+          [attr.aria-label]="'Slide ' + ($index + 1)">
+        </button>
+        }
+      </div>
+      <div class="carousel-inner">
+        @for (item of albums; track $index) {
+        <div class="carousel-item" [class.active]="$index === 0">
+          <img [src]="item.src" class="d-block w-100" [alt]="item.alt">
+        </div>
+        }
+      </div>
+    </div>
+  } @else if(loading && message){
+    <div class="col-12 d-flex justify-content-center">
+      <div class="alert alert-danger mt-5" role="alert">
+        {{message}}
+      </div>
+    </div>
+  }
+  </div>
+</section>
